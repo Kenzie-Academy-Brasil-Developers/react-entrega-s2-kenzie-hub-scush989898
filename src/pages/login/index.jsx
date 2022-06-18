@@ -2,9 +2,84 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React from "react";
-import "./style";
+import { StyledLogin } from "./style";
 import ApiKenzieHub from "../../services/api";
+import StyledLogo from "../../components/logo";
+import Button from "../../components/button";
+import { TextField, InputAdornment, IconButton } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useHistory } from "react-router-dom";
 
 export default function Login() {
-  return <div>Login</div>;
+  const [showPassword, setShowPassword] = useState(false);
+  let history = useHistory();
+
+  function sendToRegister() {
+    history.push("/register");
+  }
+
+  async function getLoginData(data) {
+    ApiKenzieHub.post("/sessions", data)
+      .then((res) => console.log(res.data))
+      .catch((error) => console.error(error));
+  }
+  const loginSchema = yup.object().shape({
+    email: yup.string().required("Email obrigatório").email("Email inválido"),
+    password: yup
+      .string()
+      .required("Senha Obrigatória")
+      .min(8, "Mínimo 8 caracteres"),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(loginSchema) });
+  return (
+    <StyledLogin>
+      <StyledLogo />
+      <div className="form">
+        <form action="" onSubmit={handleSubmit(getLoginData)}>
+          <h4>Login</h4>
+          <TextField
+            {...register("email")}
+            error={!!errors.email}
+            helperText={errors?.email?.message}
+            label="Email"
+            placeholder="Email"
+            variant="outlined"
+            color="secondary"
+          />
+          <TextField
+            color="secondary"
+            {...register("password")}
+            name="password"
+            label="Senha"
+            error={!!errors.password}
+            helperText={errors?.password?.message}
+            type={showPassword ? "text" : "password"}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Button type="submit" Backcolor="#FF577F">
+            Entrar
+          </Button>
+        </form>
+        <h5>Ainda não possui uma conta?</h5>
+        <Button func={sendToRegister} Backcolor="#868E96">
+          Cadastre-se
+        </Button>
+      </div>
+    </StyledLogin>
+  );
 }

@@ -23,8 +23,9 @@ export const GlobalStyle = createGlobalStyle`
   font-style: normal;
 }
 .App {
+  /* border: 1px solid white; */
   text-align: center;
-  background-color: #282c34;
+  background-color: #121214;
   min-height: 100vh;
   width: 100%;
   display: flex;

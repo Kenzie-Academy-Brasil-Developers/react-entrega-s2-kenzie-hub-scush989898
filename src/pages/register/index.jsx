@@ -6,5 +6,5 @@ import "./style";
 import ApiKenzieHub from "../../services/api";
 
 export default function Register() {
-  return <div>Register</div>;
+  return <div>sds</div>;
 }
