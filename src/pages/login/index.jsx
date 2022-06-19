@@ -21,10 +21,23 @@ export default function Login() {
     history.push("/register");
   }
 
-  async function getLoginData(data) {
+  function getLoginData(data) {
     ApiKenzieHub.post("/sessions", data)
-      .then((res) => console.log(res.data))
-      .catch((error) => console.error(error));
+      .then((res) => {
+        if (res.data) {
+          const { token, user } = res.data;
+          localStorage.clear();
+          localStorage.setItem("kenzieHub:token", token);
+          localStorage.setItem("kenzieHub:user", JSON.stringify(user));
+          toast.success("Logado com sucesso");
+          setTimeout(() => {
+            history.push("/dashboard");
+          }, 1200);
+          return;
+        }
+        throw new Error("Dados inválidos!");
+      })
+      .catch((error) => toast.error("Dados inválidos"));
   }
   const loginSchema = yup.object().shape({
     email: yup.string().required("Email obrigatório").email("Email inválido"),
