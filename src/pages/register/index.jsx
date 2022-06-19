@@ -142,8 +142,8 @@ export default function Register() {
         >
           <MenuItem
             sx={{
-              color: "#f8f9fa",
-              background: "#212529",
+              color: "black",
+              // background: "#212529",
               "&.Mui-selected": {
                 background: "#212529",
                 color: "#f8f9fa",
@@ -155,8 +155,8 @@ export default function Register() {
           </MenuItem>
           <MenuItem
             sx={{
-              color: "#f8f9fa",
-              background: "#212529",
+              color: "black",
+              // background: "#212529",
               "&.Mui-selected": {
                 background: "#212529",
                 color: "#f8f9fa",
@@ -168,8 +168,8 @@ export default function Register() {
           </MenuItem>
           <MenuItem
             sx={{
-              color: "#f8f9fa",
-              background: "#212529",
+              color: "black",
+              // background: "#212529",
               "&.Mui-selected": {
                 background: "#212529",
                 color: "#f8f9fa",
@@ -181,8 +181,8 @@ export default function Register() {
           </MenuItem>
           <MenuItem
             sx={{
-              color: "#f8f9fa",
-              background: "#212529",
+              color: "black",
+              // background: "#212529",
               "&.Mui-selected": {
                 background: "#212529",
                 color: "#f8f9fa",
