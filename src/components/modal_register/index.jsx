@@ -4,36 +4,45 @@ import Modal from "@mui/material/Modal";
 import { TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "../../components/button";
-import { StyledHeaderEdit } from "./style";
-import { StyledMainEdit } from "./style";
+import { StyledHeaderModal } from "./style";
+import { StyledMainModal } from "./style";
 import ApiKenzieHub from "../../services/api";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 
-export default function ModalEdit({
+export default function ModalRegister({
+  open,
+  handleClose,
   getTechs,
-  handleEditClose,
   actUser,
-  editOpen,
-  actualEditTech,
 }) {
-  function editTech(data) {
-    ApiKenzieHub.put(`/users/techs/${actualEditTech.id}`, data, {
+  const registerTechSchema = yup.object().shape({
+    title: yup.string().required("Nome obrigatório"),
+    status: yup.string().required("Selecione um status"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(registerTechSchema) });
+
+  function registerTech(data) {
+    ApiKenzieHub.post("/users/techs", data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("kenzieHub:token")}`,
       },
     })
       .then((res) => {
         if (res.status == 201) {
-          toast.success("Tecnologia Atualizada!");
+          toast.success("Tecnologia Cadastrada!");
           getTechs(actUser.id);
         }
       })
       .catch((error) => console.log(error));
   }
-
   const style = {
     position: "absolute",
     top: "50%",
@@ -46,17 +55,8 @@ export default function ModalEdit({
     p: 0,
   };
 
-  const editTechSchema = yup.object().shape({
-    status: yup.string().required("Selecione um status"),
-  });
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(editTechSchema) });
   return (
-    <Modal open={editOpen} onClose={handleEditClose} sx={style}>
+    <Modal open={open} onClose={handleClose} sx={style}>
       <Box
         sx={{
           width: "100%",
@@ -65,17 +65,20 @@ export default function ModalEdit({
           flexDirection: "column",
         }}
       >
-        <StyledHeaderEdit className="header">
-          <span>Tecnologia Detalhes</span>
-          <button onClick={handleEditClose}>X</button>
-        </StyledHeaderEdit>
-        <StyledMainEdit>
-          <form action="" onSubmit={handleSubmit(editTech)}>
+        <StyledHeaderModal className="header">
+          <span>Cadastrar Tecnologia </span>
+          <button onClick={handleClose}>X</button>
+        </StyledHeaderModal>
+        <StyledMainModal>
+          <form action="" onSubmit={handleSubmit(registerTech)}>
             <TextField
-              disabled
-              label={`${actualEditTech.title} *(Não pode ser alterado)`}
+              {...register("title")}
+              error={!!errors.title}
+              helperText={errors?.title?.message}
+              label="Nome"
+              placeholder="Nome da tecnologia"
               color="secondary"
-              sx={{ width: "100%", color: "white " }}
+              sx={{ width: "100%" }}
               inputProps={{
                 style: { color: "white", background: "#343b41" },
               }}
@@ -84,9 +87,10 @@ export default function ModalEdit({
               {...register("status")}
               error={!!errors.status}
               helperText={errors?.status?.message}
+              label="Selecionar status"
               color="secondary"
-              label={actualEditTech.status}
-              defaultValue={actualEditTech.status}
+              placeholder="Selecione o status"
+              defaultValue=""
               select
               sx={{ width: "100%", background: "#343b41", color: "white" }}
               inputProps={{
@@ -130,11 +134,11 @@ export default function ModalEdit({
                 Avançado
               </MenuItem>
             </TextField>
-            <Button type="submit" Backcolor="#59323F">
-              Salvar Alterações
+            <Button type="submit" Backcolor="#FF577F">
+              Cadastrar Tecnologia
             </Button>
           </form>
-        </StyledMainEdit>
+        </StyledMainModal>
       </Box>
     </Modal>
   );
