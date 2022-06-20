@@ -73,7 +73,7 @@ export default function ModalEdit({
           <form action="" onSubmit={handleSubmit(editTech)}>
             <TextField
               disabled
-              label={`${actualEditTech.title} *(Não pode ser alterado)`}
+              label={`${actualEditTech.title}`}
               color="secondary"
               sx={{ width: "100%", color: "white " }}
               inputProps={{
@@ -85,7 +85,7 @@ export default function ModalEdit({
               error={!!errors.status}
               helperText={errors?.status?.message}
               color="secondary"
-              label={actualEditTech.status}
+              label="Status"
               defaultValue={actualEditTech.status}
               select
               sx={{ width: "100%", background: "#343b41", color: "white" }}

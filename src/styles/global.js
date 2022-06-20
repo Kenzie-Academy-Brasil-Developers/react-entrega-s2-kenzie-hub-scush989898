@@ -2,14 +2,6 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 
-/* #FF577F */
-/* #868E96 */
-/* #212529 */
-/* #121214 */
-/* #343B41 */
-/* #59323F */
-
-
 * {
   text-decoration: none;
   padding: 0;
@@ -23,7 +15,6 @@ export const GlobalStyle = createGlobalStyle`
   font-style: normal;
 }
 .App {
-  /* border: 1px solid white; */
   text-align: center;
   background-color: #121214;
   min-height: 100vh;
@@ -31,7 +22,6 @@ export const GlobalStyle = createGlobalStyle`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
 }
 
 button {
@@ -43,8 +33,5 @@ ol,
 ul {
   list-style-type: none;
 }
-
-
-
 
 `;

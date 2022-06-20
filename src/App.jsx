@@ -2,7 +2,6 @@ import { GlobalStyle } from "./styles/global";
 import Routes from "./routes/index";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import { useState } from "react";
 
 function App() {
   return (

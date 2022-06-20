@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledRegister = styled.div`
   padding: 13px;
   width: 100vw;
+  max-width: 550px;
   height: auto;
   background-color: #121214;
   display: flex;

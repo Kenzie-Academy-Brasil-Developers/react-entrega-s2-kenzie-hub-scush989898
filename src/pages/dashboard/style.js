@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const StyledDashboard = styled.div`
   width: 100%;
+  max-width: 1100px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -23,6 +24,7 @@ export const StyledDashboard = styled.div`
     border-radius: 4px;
     border: none;
     width: 22%;
+    max-width: 150px;
     font-weight: 600;
     font-size: 14px;
     line-height: 28px;
@@ -51,6 +53,20 @@ export const StyledDashboard = styled.div`
     font-size: 14px;
     line-height: 22px;
     color: #868e96;
+  }
+
+  @media (min-width: 700px) {
+    .userInfo {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .userInfo > h3 {
+      font-size: 23px;
+    }
+    .userInfo > p {
+      font-size: 18px;
+    }
   }
 
   main {

@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledLogin = styled.div`
   padding: 13px;
   width: 100vw;
+  max-width: 550px;
   height: 100vh;
   background-color: #121214;
   display: flex;
